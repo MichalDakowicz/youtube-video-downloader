@@ -37,8 +37,13 @@ def convert_mp4_to_mp3():
 
 def download_all(links):
     for link in links:
-        download_video(link)
-
+        try:
+            download_video(link)
+        except:
+            print(f'Failed to download {link}!')
+            with open('failed_links.txt', 'a') as file:
+                file.write(f'{link}\n')
+            continue
 def main():
     links = get_links()
     if input('Do you want to download both video and audio files? (y/n) ').lower() == 'y':
